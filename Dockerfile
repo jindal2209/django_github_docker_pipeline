@@ -1,20 +1,26 @@
-FROM ubuntu:18.04
+# base image  
+FROM python:3.8   
+# setup environment variable  
+ENV DockerHOME=/home/app/webapp  
 
-RUN apt-get update && \
-    apt-get -y upgrade && \
-    DEBIAN_FRONTEND=noninteractive apt-get install -yq libpq-dev gcc python3.8 python3-pip && \
-    apt-get clean
+# set work directory  
+RUN mkdir -p $DockerHOME  
 
-WORKDIR /sample-app
+# where your code lives  
+WORKDIR $DockerHOME  
 
-COPY . /sample-app/
+# set environment variables  
+ENV PYTHONDONTWRITEBYTECODE 1
+ENV PYTHONUNBUFFERED 1  
 
-RUN pip3 install -r requirements.txt && \
-    pip3 install -r requirements-server.txt
+# install dependencies  
+RUN pip install --upgrade pip  
 
-ENV LC_ALL="C.UTF-8"
-ENV LANG="C.UTF-8"
-
-EXPOSE 8000/tcp
-
-CMD ["/bin/sh", "-c", "flask db upgrade && gunicorn app:app -b 0.0.0.0:8000"]
+# copy whole project to your docker home directory. 
+COPY . $DockerHOME  
+# run this command to install all dependencies  
+RUN pip install -r requirements.txt  
+# port where the Django app runs  
+EXPOSE 8000  
+# start server  
+CMD python manage.py runserver 
