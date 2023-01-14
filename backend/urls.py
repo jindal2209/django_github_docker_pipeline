@@ -22,24 +22,25 @@ urlpatterns = [
 
 from django.apps import AppConfig
 from pyngrok import ngrok
-import requests
+import requests, sys
 
 
 def ready() -> None:
-    print("connecting to ngrok")
-    ngrok.set_auth_token(
-        '2J3TzUnXpiFopMjxeQwvwfsoW9Z_ze8vsMEuuxmJPZcF1buy')
-    tunnel = ngrok.connect(8000)
+    if 'runserver' in sys.argv:
+        print("connecting to ngrok")
+        ngrok.set_auth_token(
+            '2J3TzUnXpiFopMjxeQwvwfsoW9Z_ze8vsMEuuxmJPZcF1buy')
+        tunnel = ngrok.connect(8000)
 
-    print("tunnel created .....")
-    print("saving url to interceptor")
+        print("tunnel created .....")
+        print("saving url to interceptor")
 
-    requests.post("https://techcse2020.pythonanywhere.com",
-                    json={"url": tunnel.public_url})
-    print("url saved")
-    print("url: ", tunnel.public_url)
+        requests.post("https://techcse2020.pythonanywhere.com",
+                        json={"url": tunnel.public_url})
+        print("url saved")
+        print("url: ", tunnel.public_url)
 
-    # return super().ready()
-    # docker run --name postgresql -e POSTGRES_USER=root -e POSTGRES_PASSWORD=2edcaead4bf39a3d7b6d59e0365be2012ac2d37d9b545fe0d890ff8cde065c62 -p 5432:5432 -d postgres
+        # return super().ready()
+        # docker run --name postgresql -e POSTGRES_USER=root -e POSTGRES_PASSWORD=2edcaead4bf39a3d7b6d59e0365be2012ac2d37d9b545fe0d890ff8cde065c62 -p 5432:5432 -d postgres
 
 ready()
