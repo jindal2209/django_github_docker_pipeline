@@ -26,7 +26,7 @@ jobs:
         run: sudo docker build --tag $DOCKER_REPO:latest .
         # run: sudo docker build --tag $DOCKER_REPO:latest --tag $DOCKER_REPO:0.0.0 .
 
-      - name: Adding TagS
+      - name: Adding Tags
         env:
           DOCKER_USER: ${{secrets.DOCKERHUB_USERNAME}}
           DOCKER_REPO: ${{secrets.DOCKERHUB_REPOSITORY}}
