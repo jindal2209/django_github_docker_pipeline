@@ -17,7 +17,8 @@ jobs:
       - name: Build the Docker image
         env:
           DOCKER_REPO: ${{secrets.DOCKERHUB_REPOSITORY}}
-        run: docker build --tag $DOCKER_REPO:latest --tag $DOCKER_REPO:${{ github.ref }} .
+        run: docker build --tag $DOCKER_REPO:latest --tag $DOCKER_REPO:0.0.0 .
+        # run: docker build --tag $DOCKER_REPO:latest --tag $DOCKER_REPO:${{ github.ref }} .
 
       - name: Docker Login
         env:
