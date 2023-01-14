@@ -7,6 +7,8 @@ on:
       - "v.*.*.*"
   pull_request:
     branches: ["master"]
+  release:
+    types: [published, edited]
 
 jobs:
   build:
@@ -24,7 +26,6 @@ jobs:
         env:
           DOCKER_REPO: ${{secrets.DOCKERHUB_REPOSITORY}}
         run: sudo docker build --tag $DOCKER_REPO:latest .
-        # run: sudo docker build --tag $DOCKER_REPO:latest --tag $DOCKER_REPO:0.0.0 .
 
       - name: Adding Tags
         env:
