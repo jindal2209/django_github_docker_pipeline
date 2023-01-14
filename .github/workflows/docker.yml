@@ -30,7 +30,7 @@ jobs:
         env:
           DOCKER_REPO: ${{secrets.DOCKERHUB_REPOSITORY}}
         run: sudo docker push $DOCKER_REPO
-# # Taken from: https://docs.github.com/en/free-pro-team@latest/actions/guides/building-and-testing-python
+# #  Taken from: https://docs.github.com/en/free-pro-team@latest/actions/guides/building-and-testing-python
 # # and: https://docs.github.com/en/free-pro-team@latest/actions/guides/publishing-docker-images
 # # and adapted. More info on workflow syntax: https://docs.github.com/en/free-pro-team@latest/actions/reference/workflow-syntax-for-github-actions
 # name: build and push Docker image
